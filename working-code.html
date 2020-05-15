@@ -11,18 +11,20 @@
 	 Ensure that the form have at least one hidden field -->
 
 <script type="text/javascript">
+	// User specefic
 	var pipeParams = {
 	    size:{width:640,height:390}, 
-	    qualityurl:"avq/360p.xml", 
-	    accountHash:"YOUR-ACCOUNT-HASH-ID", 
+	    qualityurl:"avq/720p.xml", 
+	    accountHash:"658119fb03ff809386fa4048a263ae12", 
 	    eid:"U3fR2p", 
 	    mrt:120
 	};
+
+	// For Fluentforms
 	PipeSDK.insert("fluentformVdoRecoder",pipeParams,function(recorderObject){
-	     var accountHash = pipeParams.accountHash;
-	     var baseUrl = "https://eu1-addpipe.s3.eu-central-1.amazonaws.com/";
-	        recorderObject.onSaveOk = function onSaveOk(streamName, streamDuration, userId, cameraName, micName, recorderId, audioCodec, videoCodec, fileType, videoId, audioOnly, location) {
-	        jQuery( "[name='hidden']" )[0].value = baseUrl + accountHash + "/" + streamDuration + ".mp4"
-	     }
+	    var accountHash = pipeParams.accountHash;
+	    recorderObject.onSaveOk = function onSaveOk(streamName, streamDuration, userId, cameraName, micName, recorderId, audioCodec, videoCodec, fileType, videoId, audioOnly, location) {
+		jQuery( "[name='hidden']" )[0].value = "https://"+ audioOnly+ "/" + accountHash + "/" + streamDuration + ".mp4"
+	    }
 	});
 </script>
